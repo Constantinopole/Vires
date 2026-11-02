@@ -33,6 +33,21 @@ jobs:
           sed -i 's/android:label="[^"]*"/android:label="Vires"/' android/app/src/main/AndroidManifest.xml
           dart run flutter_launcher_icons
 
+      - name: Force compileSdk 35 on all plugins
+        run: |
+          mkdir -p ~/.gradle
+          cat > ~/.gradle/init.gradle << 'EOF'
+          allprojects {
+              afterEvaluate { project ->
+                  if (project.hasProperty('android')) {
+                      project.android {
+                          compileSdkVersion 35
+                      }
+                  }
+              }
+          }
+          EOF
+
       - name: Build the APK
         run: |
           cd app
