@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_shield_bg">#15181F</color>
+    <color name="ic_david_bg">#5B2A86</color>
+    <color name="ic_michael_bg">#A4161A</color>
+    <color name="ic_crusader_bg">#2F1458</color>
+    <color name="ic_lion_bg">#9D1B2A</color>
+</resources>
