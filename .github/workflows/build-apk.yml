@@ -21,17 +21,16 @@ jobs:
 
       - name: Create the Android project and add the Vires code
         run: |
-          unzip -q vires_update.zip
           flutter create --platforms=android --project-name gym_log --org com.vires app
           rm -rf app/lib app/assets
-          cp -r lib app/lib
-          cp -r assets app/assets
-          cp flutter_launcher_icons.yaml app/
+          cp -r vires_update/lib app/lib
+          cp -r vires_update/assets app/assets
+          mkdir -p app/assets/sounds
+          if [ -f timer.mp3 ]; then cp timer.mp3 app/assets/sounds/timer.mp3; echo "Custom timer sound added"; fi
+          cp -r vires_update/android_overlay/res/. app/android/app/src/main/res/
           cd app
-          flutter pub add table_calendar shared_preferences fl_chart flutter_ringtone_player vibration
-          flutter pub add --dev flutter_launcher_icons
-          sed -i 's/android:label="[^"]*"/android:label="Vires"/' android/app/src/main/AndroidManifest.xml
-          dart run flutter_launcher_icons
+          flutter pub add table_calendar shared_preferences fl_chart flutter_ringtone_player vibration audioplayers
+          python3 ../vires_update/tools/android_setup.py .
 
       - name: Force compileSdk 35 on all plugins
         run: |
